@@ -35,4 +35,4 @@ https://localhost:3000/graphiql
 ## I'm done now what?
 Congratulations on finishing!
 
-Please send the hiring manage a link to the git repo with your solution. Once they review they will be in tocuh.
+Please send the hiring manage a link to the git repo with your solution. Once they review they will be in touch.
