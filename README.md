@@ -30,7 +30,7 @@ The design and presentation of this is entirely up to you. Remember this is a ch
 4. `$ npm start`
 
 GraphQL GraphiQL tool / documentation url:
-https://localhost:3000/graphiql 
+https://localhost:8080/graphiql 
 
 ## I'm done now what?
 Congratulations on finishing!
