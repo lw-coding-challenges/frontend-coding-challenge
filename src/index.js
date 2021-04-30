@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
+const cors = require('cors');
 
 // initialize people datastore
 let people = [];
@@ -40,7 +41,7 @@ const typeDefs = `
   input EditPerson { title: String, first: String last: String, email: String}
   type Name { title: String, first: String, last: String}
   type Picture { large: String, medium: String, thumbnail: String}
-  type Person { name: Name, email: String, picture: Picture, id: String }
+  type Person { name: Name, email: String, picture: Picture }
 `;
 
 // The resolvers
@@ -87,6 +88,8 @@ const schema = makeExecutableSchema({
 // Initialize the app
 const app = express();
 
+app.use(cors());
+
 // The GraphQL endpoint
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
@@ -94,6 +97,6 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // Start the server
-app.listen(3000, () => {
-    console.log(`Welcome to the Firstbase Frontend Coding Challenge API\n GraphiQL: http://localhost:3000/graphiql\n GOOD LUCK!`);
+app.listen(8080, () => {
+    console.log(`Welcome to the Firstbase Frontend Coding Challenge API\n GraphiQL: http://localhost:8080/graphiql\n GOOD LUCK!`);
 });
