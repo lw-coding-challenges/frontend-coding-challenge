@@ -23,6 +23,7 @@ const req = https.request(options, res => {
     });
     res.on('end', () => {
         people = JSON.parse(data).results;
+        people.forEach((p,idx) => p.id = idx);
         console.log('Data Seeded!');
     })
 
@@ -33,15 +34,15 @@ req.end();
 const typeDefs = `
   type Query { 
       people: [Person] 
-      person(email: String!): Person
+      person(id: ID!): Person
     }
   type Mutation {
-      editPerson(email: String!, payload:EditPerson): Person!
+      editPerson(id: ID!, payload:EditPerson): Person!
   }
   input EditPerson { title: String, first: String last: String, email: String}
   type Name { title: String, first: String, last: String}
   type Picture { large: String, medium: String, thumbnail: String}
-  type Person { name: Name, email: String, picture: Picture }
+  type Person { id: ID!, name: Name, email: String, picture: Picture }
 `;
 
 // The resolvers
@@ -49,7 +50,7 @@ const resolvers = {
     Query: {
         people: () => people,
         person: (_, args) => {
-            const idx = people.findIndex(p => p.email === args.email);
+            const idx = people.findIndex(p => p.id === parseInt(args.id));
             if (idx < 0) {
                 throw error('Person not found');
             }
@@ -58,7 +59,7 @@ const resolvers = {
     },
     Mutation: {
         editPerson: (_, args) => {
-            const idx = people.findIndex(p => p.email === args.email);
+            const idx = people.findIndex(p => p.id == parseInt(args.id));
             if (idx < 0) {
                 throw error('Person not found');
             }
