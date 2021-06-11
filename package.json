@@ -4,7 +4,10 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start:node": "node src/index.js",
+    "start:react": "cd src/client && npm start",
+    "start": "concurrently \"npm run start:node\" \"npm run start:react\"",
+    "postinstall": "cd src/client && npm install"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +18,8 @@
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }
