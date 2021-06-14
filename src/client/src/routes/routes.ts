@@ -1,4 +1,4 @@
-const home: IRoute<never> = {
+const home: IRoute<void> = {
     template: "/",
     build: () => home.template
 };
