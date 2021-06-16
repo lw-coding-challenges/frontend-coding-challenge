@@ -7,6 +7,9 @@ export const useEmployeesAll = () => useQuery<EmployeesAllQuery>(gql`{
         last
         first
       }
+      picture {
+        thumbnail
+      }
     }
   }`);
 
@@ -19,6 +22,9 @@ export interface EmployeesAllPerson {
     name: {
       first: string;
       last: string;
+    };
+    picture: {
+      thumbnail: string;
     }
 }
 
