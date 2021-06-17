@@ -10,9 +10,10 @@ import {
 } from "@material-ui/core";
 import React, { FC, useEffect, useState } from "react";
 import { Field, Form } from "react-final-form";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useEmployee } from "../../api/queries";
+import { EmployeeMutateInput, useEmployeeMutate } from "../../queries/employee-mutate";
+import { useEmployee } from "../../queries/employee-single";
 import { Routes } from "../../routes/routes";
 
 const useStyles = makeStyles({
@@ -39,20 +40,15 @@ const EmployeeTextField = styled(TextField)({
   marginTop: "10px",
 });
 
-interface IFormValues {
-  title: string;
-  first: string;
-  last: string;
-  email: string;
-}
-
-const fieldName = (key: keyof IFormValues) => key.toString();
+const fieldName = (key: keyof EmployeeMutateInput) => key.toString();
 
 export const EmployeeEdit: FC = (props) => {
   const classes = useStyles();
   var params = useParams<IEmployeeEditParams>();
   const { loading, error, data } = useEmployee(parseInt(params.id));
-  const [formValues, setFormValues] = useState<Partial<IFormValues>>({});
+  const [ updateEmployee ] = useEmployeeMutate();
+  const [formValues, setFormValues] = useState<Partial<EmployeeMutateInput>>({});
+  const history = useHistory();
 
   useEffect(() => {
     if (data) {
@@ -70,8 +66,15 @@ export const EmployeeEdit: FC = (props) => {
 
   if (!data) return <p>Person not found: {params.id}</p>;
 
-  const onSubmit = (values: IFormValues) => {
-    alert(JSON.stringify(values, null, " "));
+  const onSubmit = async (values: EmployeeMutateInput) => {
+    await updateEmployee({
+        variables: {
+            id: data.person.id,
+            input: values
+        }
+    });
+
+    history.push(Routes.home.build());
   };
 
   return (

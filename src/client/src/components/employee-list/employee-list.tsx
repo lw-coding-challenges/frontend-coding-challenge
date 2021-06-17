@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { EmployeesAllPerson, useEmployeesAll } from "../../api/queries";
+import { EmployeesAllPerson, useEmployeesAll } from "../../queries/employee-all";
 import { Routes } from "../../routes/routes";
 import { Avatar, List } from "@material-ui/core";
 import { ListItemLink } from "../list-item-link/list-item-link";
@@ -33,15 +32,9 @@ export const EmployeeList: FC = (props) => {
             { data && results ?
             <div>
                 <input value={searchTxt} onChange={(e) => setSearchTxt(e.target.value)} placeholder="Search..."/>
-                {/* <ul>
-                    { results.map(p => {
-                        return (<li key={p.id}><Link to={Routes.employee.edit.build({ id: p.id})}>{p.name.last}, {p.name.first}</Link></li>)
-                    })}
-                </ul> */}
                 <List>
                     { 
                         results.map(p => (
-                            // <li key={p.id}><Link to={Routes.employee.edit.build({ id: p.id})}>{p.name.last}, {p.name.first}</Link></li>)
                             <ListItemLink
                                 key={p.id}
                                 to={Routes.employee.edit.build({ id: p.id })}
