@@ -1,17 +1,19 @@
 import { gql, useQuery } from "@apollo/client";
 
-export const useEmployeesAll = () => useQuery<EmployeesAllQuery>(gql`{
-    people {
-      id
-      name {
-        last
-        first
-      }
-      picture {
-        thumbnail
-      }
+export const EmployeesAllGql = gql`{
+  people {
+    id
+    name {
+      last
+      first
     }
-  }`);
+    picture {
+      thumbnail
+    }
+  }
+}`;
+
+export const useEmployeesAll = () => useQuery<EmployeesAllQuery>(EmployeesAllGql);
 
 export interface EmployeesAllQuery {
     people: EmployeesAllPerson[];

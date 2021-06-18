@@ -7,20 +7,18 @@
     "start:node": "node src/index.js",
     "start:react": "cd src/client && npm start",
     "start": "concurrently \"npm run start:node\" \"npm run start:react\"",
+    "test": "cd src/client && npm test",
     "postinstall": "cd src/client && npm install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
     "apollo-server-express": "^1.4.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "final-form": "^4.20.2",
     "graphql": "^15.5.0",
-    "graphql-tools": "^7.0.4",
-    "react-final-form": "^6.5.3"
+    "graphql-tools": "^7.0.4"
   },
   "devDependencies": {
     "concurrently": "^6.2.0"
